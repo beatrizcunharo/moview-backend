@@ -1,3 +1,5 @@
+const path = require('path')
+
 function normalizeString(str) {
     return str
         .replace(/-/g, ' ')
@@ -6,6 +8,15 @@ function normalizeString(str) {
         .toLowerCase()
 }
 
+function returnCorrectPath (file) {
+    if(process.env.NODE_ENV === 'production') {
+        return `/etc/secrets/${file}`
+    } else {
+        return path.resolve(__dirname, '../credentials', file)
+    }
+}
+
 module.exports = {
-    normalizeString
+    normalizeString,
+    returnCorrectPath
 }

@@ -1,10 +1,11 @@
 const axios = require('axios')
 
-const { normalizeString } = require('../../utils')
+const { normalizeString, returnCorrectPath } = require('../../utils')
+
+const movieDbApiKeyPath = returnCorrectPath('moviedbApiKey.js')
+const moviedbApiKey = require(movieDbApiKeyPath)
 
 const BASE_URL = 'https://api.themoviedb.org/3'
-
-const moviedbApiKey = require('/etc/secrets/moviedbApiKey.js');
 
 async function getRecentMovies() {
     try {
