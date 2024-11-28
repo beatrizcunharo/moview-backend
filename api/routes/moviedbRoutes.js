@@ -8,4 +8,6 @@ router.get('/filmes-recentes', movieController.getRecentMovies)
 
 router.get('/buscar-filmes', movieController.getMoviesByTitle)
 
+router.get('/detalhes/:id', movieController.getMovieDetails)
+
 module.exports = router
