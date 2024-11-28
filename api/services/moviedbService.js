@@ -10,7 +10,7 @@ async function getRecentMovies() {
     try {
         const response = await axios.get(`${BASE_URL}/movie/now_playing`, {
             params: {
-                api_key: moviedbApiKey,
+                api_key: moviedbApiKey.apiKey,
                 language: 'pt-BR',
                 page: 1
             },
@@ -26,7 +26,7 @@ async function getMoviesByTitle(titulo) {
     try {
         const response = await axios.get(`${BASE_URL}/search/movie`, {
             params: {
-                api_key: moviedbApiKey,
+                api_key: moviedbApiKey.apiKey,
                 query: titulo,
                 language: 'pt-BR',
                 page: 1,
