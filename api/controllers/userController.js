@@ -47,10 +47,10 @@ const loginUser = async (req, res) => {
     const { email, senha } = req.body
 
     try {
-        const isAuthenticated = await userService.loginUser(email, senha)
+        const user = await userService.loginUser(email, senha)
 
-        if (isAuthenticated) {
-            return res.status(200).json({ response: true })
+        if (user) {
+            return res.status(200).json({ response: true, id: user.id })
         } else {
             return res.status(401).json({ response: false })
         }

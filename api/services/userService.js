@@ -85,16 +85,16 @@ const loginUser = async (email, senha) => {
         const snapshot = await userRef.where('email', '==', email).get()
 
         if (snapshot.empty) {
-            return false
+            return null
         }
 
         const userDoc = snapshot.docs[0]
         const userData = userDoc.data()
 
         if (senha === userData.senha) {
-            return true
+            return { id: userDoc.id }
         } else {
-            return false
+            return null
         }
     } catch (error) {
         throw new Error('Erro interno ao realizar login')
