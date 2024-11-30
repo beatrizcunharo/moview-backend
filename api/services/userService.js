@@ -92,7 +92,10 @@ const loginUser = async (email, senha) => {
         const userData = userDoc.data()
 
         if (senha === userData.senha) {
-            return { id: userDoc.id }
+            return {
+                id: userDoc.id,
+                name: userData.nome
+            }
         } else {
             return null
         }

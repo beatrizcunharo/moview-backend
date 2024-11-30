@@ -50,7 +50,11 @@ const loginUser = async (req, res) => {
         const user = await userService.loginUser(email, senha)
 
         if (user) {
-            return res.status(200).json({ response: true, id: user.id })
+            return res.status(200).json({
+                response: true,
+                id: user.id,
+                name: user.name
+            })
         } else {
             return res.status(401).json({ response: false })
         }
