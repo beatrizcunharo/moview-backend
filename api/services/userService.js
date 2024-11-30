@@ -2,6 +2,17 @@ const db = require('../../database/firestore')
 
 const createUser = async (usuario) => {
     try {
+        const userEmailRef = await db.collection('usuarios').where('email', '==', usuario.email).get()
+        const userNameRef = await db.collection('usuarios').where('user', '==', usuario.user).get()
+
+        if (!userEmailRef.empty) {
+            throw new Error('Já existe um usuário com esse email.');
+        }
+
+        if (!userNameRef.empty) {
+            throw new Error('Já existe um usuário com esse nome de usuário.');
+        }
+
         const docRef = await db.collection('usuarios').add({
             nome: usuario.nome,
             cidade: usuario.cidade || '',
@@ -13,14 +24,26 @@ const createUser = async (usuario) => {
             dataNascimento: usuario.dataNascimento || '',
             email: usuario.email
         })
+
         return docRef.id
     } catch (e) {
-        throw new Error("Erro ao criar o usuário.")
+        throw new Error(`Erro ao criar o usuário: ${e.message}`)
     }
 }
 
 const updateUser = async (userId, usuario) => {
     try {
+        const userEmailRef = await db.collection('usuarios').where('email', '==', usuario.email).get()
+        const userNameRef = await db.collection('usuarios').where('user', '==', usuario.user).get()
+
+        if (!userEmailRef.empty && userEmailRef.docs[0].id !== userId) {
+            throw new Error('Já existe um usuário com esse email.')
+        }
+
+        if (!userNameRef.empty && userNameRef.docs[0].id !== userId) {
+            throw new Error('Já existe um usuário com esse nome de usuário.')
+        }
+
         const docRef = db.collection('usuarios').doc(userId)
 
         await docRef.update({
