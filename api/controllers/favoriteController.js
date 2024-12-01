@@ -21,6 +21,7 @@ const removeFavorite = async (req, res) => {
         return res.status(500).json({ error: error.message })
     }
 }
+
 const getFavorite = async (req, res) => {
     const { userId } = req.params
 

@@ -67,9 +67,43 @@ const loginUser = async (req, res) => {
     }
 }
 
+const getUserById = async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const user = await userService.getUserById(id)
+
+        if (!user) {
+            return res.status(404).json({ error: 'Usuário não encontrado' })
+        }
+
+        return res.status(200).json({ message: 'Usuário encontrado com sucesso', user })
+    } catch (error) {
+        return res.status(500).json({ error: 'Erro ao buscar usuário por ID', details: error.message })
+    }
+}
+
+const getUserByUsername = async (req, res) => {
+    const { username } = req.params
+
+    try {
+        const user = await userService.getUserByUsername(username)
+
+        if (!user) {
+            return res.status(404).json({ error: 'Usuário não encontrado' })
+        }
+
+        return res.status(200).json({ message: 'Usuário encontrado com sucesso', user })
+    } catch (error) {
+        return res.status(500).json({ error: 'Erro ao buscar usuário por username', details: error.message })
+    }
+}
+
 module.exports = {
     createUser,
     updateUser,
     deleteUser,
-    loginUser
+    loginUser,
+    getUserById,
+    getUserByUsername
 }

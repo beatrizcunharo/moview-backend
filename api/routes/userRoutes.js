@@ -12,4 +12,8 @@ router.delete('/deletar/:id', userController.deleteUser)
 
 router.post('/login', userController.loginUser)
 
+router.get('/buscar/:id', userController.getUserById)
+
+router.get('/buscar-nome/:username', userController.getUserByUsername)
+
 module.exports = router;

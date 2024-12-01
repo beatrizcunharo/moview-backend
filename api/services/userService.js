@@ -104,9 +104,63 @@ const loginUser = async (email, senha) => {
     }
 }
 
+const getUserById = async (id) => {
+    try {
+        const userDoc = await db.collection('usuarios').doc(id).get()
+
+        if (!userDoc.exists) {
+            throw new Error('Usuário não encontrado.')
+        }
+
+        const data = userDoc.data()
+
+        return {
+            id: userDoc.id,
+            nome: data.nome,
+            cidade: data.cidade || '',
+            estado: data.estado || '',
+            descricao: data.descricao || '',
+            user: data.user,
+            senha: data.senha,
+            dataCriacao: data.dataCriacao,
+            dataNascimento: data.dataNascimento || '',
+            email: data.email,
+        }
+    } catch (e) {
+        throw new Error(`Erro ao buscar o usuário por ID: ${e.message}`)
+    }
+}
+
+const getUserByUsername = async (username) => {
+    try {
+        const userSnapshot = await db.collection('usuarios').where('user', '==', username).get()
+
+        if (userSnapshot.empty) {
+            throw new Error('Usuário não encontrado.')
+        }
+
+        const userDoc = userSnapshot.docs[0]
+        const data = userDoc.data()
+        return {
+            id: userDoc.id,
+            dataCriacao: data.dataCriacao,
+            dataNascimento: data.dataNascimento || '',
+            descricao: data.descricao || '',
+            estado: data.estado || '',
+            cidade: data.cidade || '',
+            nome: data.nome,
+            user: data.user,
+        }
+    } catch (e) {
+        throw new Error(`Erro ao buscar o usuário por username: ${e.message}`)
+    }
+}
+
 module.exports = {
     createUser,
     updateUser,
     deleteUser,
-    loginUser
+    loginUser,
+    getUserById,
+    getUserByUsername
 }
