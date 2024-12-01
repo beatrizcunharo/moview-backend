@@ -51,8 +51,8 @@ const updateUser = async (userId, usuario) => {
             cidade: usuario.cidade || '',
             estado: usuario.estado || '',
             descricao: usuario.descricao || '',
+            user: usuario.user,
             senha: usuario.senha,
-            dataCriacao: usuario.dataCriacao,
             dataNascimento: usuario.dataNascimento || '',
             email: usuario.email
         })
