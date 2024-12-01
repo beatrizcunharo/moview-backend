@@ -1,10 +1,10 @@
 const favoriteService = require('../services/favoriteService')
 
 const addFavorite = async (req, res) => {
-    const { userId, email, movieId } = req.body
+    const { userId, email, movieId, movieTitle } = req.body
 
     try {
-        const response = await favoriteService.addFavorite(userId, email, movieId)
+        const response = await favoriteService.addFavorite(userId, email, movieId, movieTitle)
         return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json({ error: error.message })

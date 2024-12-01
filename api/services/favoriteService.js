@@ -1,13 +1,14 @@
 const db = require('../../database/firestore')
 
-const addFavorite = async (userId, email, movieId) => {
+const addFavorite = async (userId, email, movieId, movieTitle) => {
     try {
         const favoritoRef = db.collection('favoritos').doc()
 
         await favoritoRef.set({
             userId: userId,
             movieId: movieId,
-            email: email
+            email: email,
+            movieTitle: movieTitle
         })
 
         return { message: 'Filme adicionado aos favoritos com sucesso!' }
@@ -51,6 +52,7 @@ const getFavorite = async (userId) => {
             userId: doc.userId,
             movieId: doc.data().movieId,
             email: doc.data().email,
+            movieTitle: doc.data().movieTitle
         }))
 
         return favoritos
