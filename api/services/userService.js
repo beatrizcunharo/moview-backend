@@ -142,6 +142,7 @@ const getUserByUsername = async (username) => {
         const userDoc = userSnapshot.docs[0]
         const data = userDoc.data()
         return {
+            id: userDoc.id,
             dataCriacao: data.dataCriacao,
             dataNascimento: data.dataNascimento || '',
             descricao: data.descricao || '',
